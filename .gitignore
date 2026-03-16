@@ -1,0 +1,11 @@
+~$*.xlsx
+Thumbs.db
+.DS_Store
+*.pdf
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Local outputs/artifacts
+outputs/
