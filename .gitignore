@@ -8,4 +8,5 @@ __pycache__/
 *.py[cod]
 
 # Local outputs/artifacts
-outputs/
+# outputs/
+.venv/

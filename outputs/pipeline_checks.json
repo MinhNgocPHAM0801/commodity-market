@@ -1,0 +1,8 @@
+{
+  "monthly_dates_monotonic": "True",
+  "monthly_duplicate_dates": "0",
+  "forecast_null_keys": "False",
+  "robusta_span_expected": "2024-07-26_to_2026-01-30",
+  "best_model": "sarimax",
+  "ml_backend": "xgboost"
+}
