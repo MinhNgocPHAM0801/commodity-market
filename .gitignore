@@ -10,3 +10,4 @@ __pycache__/
 # Local outputs/artifacts
 # outputs/
 .venv/
+.tmp/

@@ -12,12 +12,12 @@ This repository provides a full, reproducible coffee-price forecasting workflow 
 - `requirements.txt` (Python dependencies)
 
 ## Required Input Data Files
-Keep these files in the same folder as the script:
+Keep these files inside the `inputs/` folder:
 
-- `Db_all_commodities.xlsx`
-- `ENSO.xlsx`
-- `psd.xls`
-- `WB_CCKP_PR_WIDEF.csv`
+- `inputs/Db_all_commodities.xlsx`
+- `inputs/ENSO.xlsx`
+- `inputs/psd.xls`
+- `inputs/WB_CCKP_PR_WIDEF.csv`
 
 ## One-Click Run
 Run the pipeline with:

@@ -19,13 +19,14 @@ warnings.filterwarnings("ignore")
 
 
 BASE_DIR = Path(__file__).resolve().parent
+INPUT_DIR = BASE_DIR / "inputs"
 OUT_DIR = BASE_DIR / "outputs"
 OUT_DIR.mkdir(exist_ok=True)
 
-COMMODITIES_FILE = BASE_DIR / "Db_all_commodities.xlsx"
-ENSO_FILE = BASE_DIR / "ENSO.xlsx"
-PSD_FILE = BASE_DIR / "psd.xls"
-PRECIP_FILE = BASE_DIR / "WB_CCKP_PR_WIDEF.csv"
+COMMODITIES_FILE = INPUT_DIR / "Db_all_commodities.xlsx"
+ENSO_FILE = INPUT_DIR / "ENSO.xlsx"
+PSD_FILE = INPUT_DIR / "psd.xls"
+PRECIP_FILE = INPUT_DIR / "WB_CCKP_PR_WIDEF.csv"
 
 TRAIN_END = pd.Timestamp("2023-12-01")
 TEST_START = pd.Timestamp("2024-01-01")
