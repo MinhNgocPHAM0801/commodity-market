@@ -21,12 +21,39 @@ set "TMP=%cd%\.tmp"
 echo.
 echo [1/6] Checking Python installation...
 set "PYTHON_CMD="
-where python >nul 2>&1
-if not errorlevel 1 set "PYTHON_CMD=python"
+
+REM Prefer Python Launcher (py) because it works even when python.exe is not on PATH.
+where py >nul 2>&1
+if not errorlevel 1 (
+  py -3.13 --version >nul 2>&1
+  if not errorlevel 1 set "PYTHON_CMD=py -3.13"
+)
+if not defined PYTHON_CMD (
+  where py >nul 2>&1
+  if not errorlevel 1 (
+    py -3.12 --version >nul 2>&1
+    if not errorlevel 1 set "PYTHON_CMD=py -3.12"
+  )
+)
+if not defined PYTHON_CMD (
+  where py >nul 2>&1
+  if not errorlevel 1 (
+    py -3.11 --version >nul 2>&1
+    if not errorlevel 1 set "PYTHON_CMD=py -3.11"
+  )
+)
+
+REM Fallback to python.exe on PATH.
+if not defined PYTHON_CMD (
+  where python >nul 2>&1
+  if not errorlevel 1 set "PYTHON_CMD=python"
+)
 if defined PYTHON_CMD (
   %PYTHON_CMD% --version >nul 2>&1
   if errorlevel 1 set "PYTHON_CMD="
 )
+
+REM Fallback to common per-user install locations without hardcoding username.
 if not defined PYTHON_CMD (
   if exist "%LOCALAPPDATA%\Programs\Python\Python313\python.exe" set "PYTHON_CMD="%LOCALAPPDATA%\Programs\Python\Python313\python.exe""
 )
@@ -34,18 +61,7 @@ if not defined PYTHON_CMD (
   if exist "%LOCALAPPDATA%\Programs\Python\Python312\python.exe" set "PYTHON_CMD="%LOCALAPPDATA%\Programs\Python\Python312\python.exe""
 )
 if not defined PYTHON_CMD (
-  if exist "C:\Users\VivoBook M513\AppData\Local\Programs\Python\Python313\python.exe" set "PYTHON_CMD="C:\Users\VivoBook M513\AppData\Local\Programs\Python\Python313\python.exe""
-)
-if not defined PYTHON_CMD (
-  if exist "C:\Users\VivoBook M513\AppData\Local\Programs\Python\Python312\python.exe" set "PYTHON_CMD="C:\Users\VivoBook M513\AppData\Local\Programs\Python\Python312\python.exe""
-)
-if not defined PYTHON_CMD (
-  where py >nul 2>&1
-  if not errorlevel 1 set "PYTHON_CMD=py -3"
-)
-if defined PYTHON_CMD (
-  %PYTHON_CMD% --version >nul 2>&1
-  if errorlevel 1 set "PYTHON_CMD="
+  if exist "%LOCALAPPDATA%\Programs\Python\Python311\python.exe" set "PYTHON_CMD="%LOCALAPPDATA%\Programs\Python\Python311\python.exe""
 )
 if not defined PYTHON_CMD (
   echo ERROR: Python is not available for this shell session.
@@ -136,6 +152,14 @@ start "" explorer "%cd%\%OUT_DIR%"
 
 REM Optional: auto-launch Power BI Desktop if found in default install location
 set "PBI_EXE=%ProgramFiles%\Microsoft Power BI Desktop\bin\PBIDesktop.exe"
+if not exist "%PBI_EXE%" set "PBI_EXE=%ProgramFiles(x86)%\Microsoft Power BI Desktop\bin\PBIDesktop.exe"
+if not exist "%PBI_EXE%" (
+  for /f "delims=" %%I in ('where PBIDesktop.exe 2^>nul') do (
+    set "PBI_EXE=%%I"
+    goto :PBI_FOUND
+  )
+)
+:PBI_FOUND
 if exist "%PBI_EXE%" (
   echo Launching Power BI Desktop...
   start "" "%PBI_EXE%"
