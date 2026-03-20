@@ -92,21 +92,9 @@ Generated files:
 - Forecast horizon: next month + 12-month path
 - If `xgboost` is unavailable, ML model falls back to `GradientBoostingRegressor`
 
-## Power BI Setup Guide
-Use this once after running `run_pipeline.bat` (or the Python script):
-
-1. Open Power BI Desktop.
-2. Select **Get Data** > **Text/CSV**.
-3. Import CSV files from `outputs\`:
-   - `arabica_monthly_actuals.csv`
-   - `arabica_forecasts.csv`
-   - `model_metrics.csv`
-   - `drivers_monthly.csv`
-   - `robusta_descriptive.csv`
-   - `garch_volatility.csv`
-4. In **Model** view, create relationships on the shared month/date fields.
-5. Build visuals (actual vs forecast, model metrics, drivers, robusta comparison).
-6. On future updates, just refresh data after re-running the pipeline.
+## Power BI Dashboard
+View the interactive Power BI dashboard here:
+https://app.powerbi.com/view?r=eyJrIjoiYTgwOTRlYTctODI1ZS00NzYzLTk2MmItNjA0YjQ4Y2IzZjAwIiwidCI6IjI3YTU4YjYzLTg2ODQtNDBmNy1iNzM3LWM5YTUzNGU2NTc0NSJ9&fbclid=IwY2xjawQqmJJleHRuA2FlbQIxMABicmlkETJZN3NMRGVYSk9hMFpkTmVZc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHtMNB9olHI0JCnN1PNNJ3HwYpBlVvWhlo7JR0m0AB6JlyU0Fgzz9jnepi7Ng_aem_aKqkQeL5VWLSL8_Qd6I3zw
 
 ## Runtime Note
 If both primary and retry runs fail with `PermissionError`, close Excel/Power BI tabs currently holding output CSV files, then re-run `run_pipeline.bat`.
